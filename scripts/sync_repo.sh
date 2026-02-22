@@ -4,24 +4,25 @@ set -euo pipefail
 # Sync ONLY lambda/ from one git remote to another without hardcoding URLs.
 # Keeps all non-lambda files on target (e.g. skill-package/, ask-resources.json).
 # Usage:
-#   scripts/sync_repo.sh <from-remote> <to-remote> [branch]
+#   scripts/sync_repo.sh <from-remote> <to-remote> [source-branch] [target-branch]
 # Example:
-#   scripts/sync_repo.sh origin codecommit main
+#   scripts/sync_repo.sh origin codecommit main master
 
-if [[ ${1:-} == "-h" || ${1:-} == "--help" || $# -lt 2 || $# -gt 3 ]]; then
+if [[ ${1:-} == "-h" || ${1:-} == "--help" || $# -lt 2 || $# -gt 4 ]]; then
   cat <<'USAGE'
 Sync only the lambda/ directory from source remote to destination remote.
 
 Usage:
-  scripts/sync_repo.sh <from-remote> <to-remote> [branch]
+  scripts/sync_repo.sh <from-remote> <to-remote> [source-branch] [target-branch]
 
 Arguments:
   from-remote  Source remote name already configured in local git
   to-remote    Destination remote name already configured in local git
-  branch       Optional branch name to sync (defaults to current branch)
+  source-branch Optional source branch name to sync (defaults to current branch)
+  target-branch Optional destination branch name to sync into (defaults to source-branch)
 
 Behavior:
-  - Copies only lambda/ from <from-remote>/<branch>.
+  - Copies only lambda/ from <from-remote>/<source-branch>.
   - Preserves all other files in destination branch (skill-package/, ask-resources.json, etc.).
   - Creates a commit on destination branch only when lambda/ changed.
 
@@ -33,7 +34,8 @@ fi
 
 FROM_REMOTE="$1"
 TO_REMOTE="$2"
-BRANCH="${3:-$(git rev-parse --abbrev-ref HEAD)}"
+SOURCE_BRANCH="${3:-$(git rev-parse --abbrev-ref HEAD)}"
+TARGET_BRANCH="${4:-$SOURCE_BRANCH}"
 
 # Validate remotes exist.
 git remote get-url "$FROM_REMOTE" >/dev/null
@@ -46,16 +48,16 @@ if [[ -n "$(git status --porcelain)" ]]; then
 fi
 
 # Ensure source and destination branch refs are available locally.
-git fetch "$FROM_REMOTE" "$BRANCH"
-git fetch "$TO_REMOTE" "$BRANCH"
+git fetch "$FROM_REMOTE" "$SOURCE_BRANCH"
+git fetch "$TO_REMOTE" "$TARGET_BRANCH"
 
-if ! git ls-tree -d --name-only "${FROM_REMOTE}/${BRANCH}" lambda >/dev/null 2>&1; then
-  echo "Error: source branch '${FROM_REMOTE}/${BRANCH}' not found." >&2
+if ! git ls-tree -d --name-only "${FROM_REMOTE}/${SOURCE_BRANCH}" lambda >/dev/null 2>&1; then
+  echo "Error: source branch '${FROM_REMOTE}/${SOURCE_BRANCH}' not found." >&2
   exit 3
 fi
 
-if [[ -z "$(git ls-tree -d --name-only "${FROM_REMOTE}/${BRANCH}" lambda)" ]]; then
-  echo "Error: source branch '${FROM_REMOTE}/${BRANCH}' has no lambda/ directory." >&2
+if [[ -z "$(git ls-tree -d --name-only "${FROM_REMOTE}/${SOURCE_BRANCH}" lambda)" ]]; then
+  echo "Error: source branch '${FROM_REMOTE}/${SOURCE_BRANCH}' has no lambda/ directory." >&2
   exit 4
 fi
 
@@ -68,13 +70,13 @@ trap cleanup EXIT
 # Create temporary repo based on destination branch.
 git -C "$TMP_DIR" init -q
 git -C "$TMP_DIR" remote add dest "$(git remote get-url "$TO_REMOTE")"
-git -C "$TMP_DIR" fetch -q dest "$BRANCH"
-git -C "$TMP_DIR" checkout -q -b "$BRANCH" "dest/$BRANCH"
+git -C "$TMP_DIR" fetch -q dest "$TARGET_BRANCH"
+git -C "$TMP_DIR" checkout -q -b "$TARGET_BRANCH" "dest/$TARGET_BRANCH"
 
 # Replace only lambda/ with source lambda/ content.
 rm -rf "$TMP_DIR/lambda"
 mkdir -p "$TMP_DIR/lambda"
-git archive "${FROM_REMOTE}/${BRANCH}" lambda | tar -x -C "$TMP_DIR"
+git archive "${FROM_REMOTE}/${SOURCE_BRANCH}" lambda | tar -x -C "$TMP_DIR"
 
 # Commit only if lambda changed.
 if [[ -z "$(git -C "$TMP_DIR" status --porcelain -- lambda)" ]]; then
@@ -83,7 +85,7 @@ if [[ -z "$(git -C "$TMP_DIR" status --porcelain -- lambda)" ]]; then
 fi
 
 git -C "$TMP_DIR" add lambda
-git -C "$TMP_DIR" commit -q -m "chore(sync): update lambda from ${FROM_REMOTE}/${BRANCH}"
-git -C "$TMP_DIR" push -q dest "$BRANCH"
+git -C "$TMP_DIR" commit -q -m "chore(sync): update lambda from ${FROM_REMOTE}/${SOURCE_BRANCH}"
+git -C "$TMP_DIR" push -q dest "$TARGET_BRANCH"
 
-echo "Sync completed: lambda/ from ${FROM_REMOTE}/${BRANCH} -> ${TO_REMOTE}/${BRANCH}"
+echo "Sync completed: lambda/ from ${FROM_REMOTE}/${SOURCE_BRANCH} -> ${TO_REMOTE}/${TARGET_BRANCH}"
