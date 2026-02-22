@@ -1,6 +1,6 @@
-# Python-First v1 Implementation Plan (Clock Pet)
+# Python-First v1 Implementation Plan (Mascota)
 
-This plan defines a practical v1 for building **Clock Pet** with a Python-based Alexa backend, optimized for fast iteration and safe growth.
+This plan defines a practical v1 for building **Mascota** with a Python-based Alexa backend, optimized for fast iteration and safe growth.
 
 ## 1) Why Python-first
 
@@ -122,7 +122,7 @@ Move when you need stronger infra controls:
 ### Console/simulator tests
 
 - Device profile: Echo Dot with Clock.
-- Voice test phrase: `open clock pet`.
+- Voice test phrase: `open mascota`.
 - Repeat invocation 5-10 times and verify frame progression.
 - Validate help/fallback responses are short and stable.
 

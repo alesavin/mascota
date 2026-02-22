@@ -1,4 +1,4 @@
-"""SSML helpers for Clock Pet."""
+"""SSML helpers for Mascota."""
 
 from clock_pet.constants import BLINK_SFX
 

@@ -1,4 +1,4 @@
-"""Lambda entrypoint for Clock Pet Alexa skill."""
+"""Lambda entrypoint for Mascota Alexa skill."""
 
 from ask_sdk_core.skill_builder import SkillBuilder
 

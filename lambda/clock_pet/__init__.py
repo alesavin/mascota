@@ -1,1 +1,1 @@
-"""Clock Pet package."""
+"""Mascota package."""
