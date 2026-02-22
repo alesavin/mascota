@@ -1,14 +1,15 @@
 """Render APL-T directives for Mascota."""
 
+from ask_sdk_model.interfaces.alexa.presentation.apl import RenderDocumentDirective
 
-def build_aplt_render_directive(frame: str) -> dict:
+
+def build_aplt_render_directive(frame: str) -> RenderDocumentDirective:
     """Build a minimal APL-T render directive for a 4-character display."""
     safe_frame = frame[:4]
 
-    return {
-        "type": "Alexa.Presentation.APL.RenderDocument",
-        "token": "clockPetEyes",
-        "document": {
+    return RenderDocumentDirective(
+        token="clockPetEyes",
+        document={
             "type": "APL",
             "version": "1.8",
             "theme": "dark",
@@ -27,5 +28,5 @@ def build_aplt_render_directive(frame: str) -> dict:
                 ],
             },
         },
-        "datasources": {},
-    }
+        datasources={},
+    )
