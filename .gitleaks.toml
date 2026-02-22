@@ -1,0 +1,11 @@
+title = "Mascota gitleaks config"
+
+[allowlist]
+description = "Allow obvious placeholders used in docs/examples"
+paths = [
+  '''docs/design/clock-pet.md'''
+]
+regexes = [
+  '''(?i)example''',
+  '''(?i)placeholder'''
+]
