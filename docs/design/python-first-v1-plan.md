@@ -99,6 +99,69 @@ For launch/interaction:
 - Use Alexa Developer Console simulator to validate behavior.
 - Keep dependencies minimal to reduce packaging complexity.
 
+#### Copy/paste click path checklist (your case)
+
+Use this when you want the quickest path from zero to simulator test.
+
+1. Open **Alexa Developer Console** → **Create Skill**.
+2. Enter:
+   - **Skill name**: `Mascota`
+   - **Primary locale**: `Spanish (ES)`
+   - **Model**: `Custom`
+   - **Hosting service**: `Alexa-hosted (Python)`
+3. Click **Create skill**.
+4. Go to **Build** tab:
+   - In left nav, open **Interfaces**.
+   - Enable **Alexa Presentation Language (APL)**.
+   - Save model.
+5. Still in **Build** tab:
+   - Open **Invocation**.
+   - Set invocation name to `levanta mascota` (minimum 2 words).
+   - Save model.
+6. In left nav, select **Interaction Model** → **Build Model**.
+7. Go to **Code** tab:
+   - Confirm runtime is Python for Alexa-hosted skill.
+   - Paste/update handler code for launch + interaction + help/cancel/fallback.
+   - Save and deploy from the hosted editor.
+8. Go to **Test** tab:
+   - Toggle testing to **Development**.
+   - Select device profile **Echo Dot with Clock**.
+   - Type/say: `abre levanta mascota`.
+9. Repeat invocation 5-10 times and verify:
+   - eye frame progresses each interaction,
+   - displayed frame is <= 4 characters,
+   - help/fallback remain short and stable.
+10. Local quality gate before sharing changes:
+    - Run `pre-commit run --all-files`.
+
+
+#### What to preserve in your local Alexa-hosted repo
+
+If your local project looks like:
+
+- `lambda/`
+- `skill-package/`
+- `ask-resources.json`
+- `Mascota.code-workspace`
+
+Preserve these as follows:
+
+1. **Keep `lambda/`** (required):
+   - contains runtime code and assets used by Alexa-hosted deployment.
+2. **Keep `skill-package/`** (required):
+   - contains interaction model(s), responses, and skill manifest (`skill.json`).
+3. **Keep `ask-resources.json`** (required for ASK CLI sync/deploy):
+   - links your local repo/profile to the hosted skill id and infra type.
+4. **Keep `Mascota.code-workspace`** (optional, local-only):
+   - editor convenience file; safe to keep in repo or ignore by team preference.
+
+Safe defaults when syncing this repo to your CodeCommit remote:
+
+- If using full-repo sync, commit/push: `lambda/`, `skill-package/`, `ask-resources.json`, docs/scripts.
+- If using `scripts/sync_repo.sh`, only `lambda/` is synced to destination; target `skill-package/` and `ask-resources.json` stay as-is.
+- Do **not** commit credentials/secrets (none should be stored in these files).
+- If you use local-only IDE settings, optionally add workspace file to `.gitignore` in your personal fork.
+
 ### Phase B (optional): AWS Lambda-managed
 
 Move when you need stronger infra controls:
@@ -122,7 +185,7 @@ Move when you need stronger infra controls:
 ### Console/simulator tests
 
 - Device profile: Echo Dot with Clock.
-- Voice test phrase: `open mascota`.
+- Voice test phrase: `abre levanta mascota`.
 - Repeat invocation 5-10 times and verify frame progression.
 - Validate help/fallback responses are short and stable.
 
