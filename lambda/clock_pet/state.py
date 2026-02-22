@@ -1,9 +1,11 @@
 """Session state helpers for Mascota."""
 
+from typing import Dict, Optional, Tuple
+
 from clock_pet.constants import DEFAULT_EYE_INDEX, DEFAULT_MOOD, EYE_FRAMES, VALID_MOODS
 
 
-def normalize_state(session_attributes: dict | None) -> dict:
+def normalize_state(session_attributes: Optional[Dict]) -> Dict:
     """Return normalized v1 state from possibly-invalid session attributes."""
     attributes = session_attributes or {}
 
@@ -26,7 +28,7 @@ def advance_eye_index(current_eye_index: int) -> int:
     return (current_eye_index + 1) % len(EYE_FRAMES)
 
 
-def next_state(session_attributes: dict | None) -> tuple[dict, str]:
+def next_state(session_attributes: Optional[Dict]) -> Tuple[Dict, str]:
     """Compute next state and selected frame for response rendering."""
     state = normalize_state(session_attributes)
     new_eye_index = advance_eye_index(state["eyeIndex"])
