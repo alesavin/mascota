@@ -8,14 +8,6 @@ This repository is prepared with a quality and secrets baseline so project imple
 - Secrets-scanning baseline (`gitleaks` config + pre-commit hook).
 - CI workflow to enforce standards on pull requests.
 - Product design notes for **Clock Pet** in `docs/design/clock-pet.md`.
-- Python-first v1 implementation plan in `docs/design/python-first-v1-plan.md`.
-
-## Documentation map
-
-- `docs/design/clock-pet.md` — core product and interaction design.
-- `docs/design/python-first-v1-plan.md` — execution roadmap for Python-based v1.
-- `docs/standards/code-quality.md` — repository quality rules and checks.
-- `docs/standards/secret-handling.md` — secret handling and incident response baseline.
 
 ## Quick start
 
