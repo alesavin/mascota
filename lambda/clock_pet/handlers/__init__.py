@@ -1,1 +1,1 @@
-"""Clock Pet request handlers package."""
+"""Mascota request handlers package."""

@@ -1,4 +1,4 @@
-"""Render APL-T directives for Clock Pet."""
+"""Render APL-T directives for Mascota."""
 
 
 def build_aplt_render_directive(frame: str) -> dict:

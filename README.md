@@ -7,7 +7,7 @@ This repository is prepared with a quality and secrets baseline so project imple
 - Code quality guardrails (EditorConfig + pre-commit checks).
 - Secrets-scanning baseline (`gitleaks` config + pre-commit hook).
 - CI workflow to enforce standards on pull requests.
-- Product design notes for **Clock Pet** in `docs/design/clock-pet.md`.
+- Product design notes for **Mascota** in `docs/design/clock-pet.md`.
 
 ## Quick start
 

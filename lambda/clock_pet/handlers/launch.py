@@ -18,7 +18,7 @@ class LaunchRequestHandler(AbstractRequestHandler):
         handler_input.attributes_manager.session_attributes.update({"eyeIndex": 0, "mood": "awake"})
 
         return (
-            handler_input.response_builder.speak("<speak>Hello, I am Clock Pet.</speak>")
+            handler_input.response_builder.speak("<speak>Hello, I am Mascota.</speak>")
             .add_directive(directive)
             .set_should_end_session(False)
             .response

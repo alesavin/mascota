@@ -1,4 +1,4 @@
-"""Shared constants for Clock Pet."""
+"""Shared constants for Mascota."""
 
 EYE_FRAMES = ["o_o", "-_-", "^_^", "O_O"]
 DEFAULT_EYE_INDEX = 0

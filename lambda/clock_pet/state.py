@@ -1,4 +1,4 @@
-"""Session state helpers for Clock Pet."""
+"""Session state helpers for Mascota."""
 
 from clock_pet.constants import DEFAULT_EYE_INDEX, DEFAULT_MOOD, EYE_FRAMES, VALID_MOODS
 

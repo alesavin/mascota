@@ -1,4 +1,4 @@
-# 👀 Clock Pet — “Fake Eyes” Alexa Skill (Echo Dot with Clock)
+# 👀 Mascota — “Fake Eyes” Alexa Skill (Echo Dot with Clock)
 
 A minimal Alexa Skill that renders fake animated “eyes” on Echo Dot with Clock using APL-T (character display).
 
@@ -202,7 +202,7 @@ lambda_handler = sb.lambda_handler()
 3. Deploy (Alexa-hosted or Lambda)
 4. Open Simulator
 5. Select device: Echo Dot with Clock
-6. Say: `open clock pet`
+6. Say: `open mascota`
 
 ## 📌 Design Rules
 
