@@ -1,0 +1,21 @@
+{
+  "type": "APL",
+  "version": "1.8",
+  "theme": "dark",
+  "mainTemplate": {
+    "parameters": [
+      "payload"
+    ],
+    "items": [
+      {
+        "type": "Text",
+        "text": "${payload.eyes.frame}",
+        "fontSize": "42dp",
+        "textAlign": "center",
+        "textAlignVertical": "center",
+        "width": "100vw",
+        "height": "100vh"
+      }
+    ]
+  }
+}
