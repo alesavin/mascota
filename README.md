@@ -40,6 +40,7 @@ This repository is prepared with a quality and secrets baseline so project imple
 5. Add sample utterances, for example:
    - `pet`
    - `pet mascota`
+   - `wake up mascota` (matches current help/fallback guidance)
    - `pat`
    - `show eyes`
 6. Save model and click **Build Model**.
