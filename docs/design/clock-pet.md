@@ -233,3 +233,13 @@ The “life” of the pet comes from:
 - Rhythm
 - Sound design
 - Small state transitions
+
+
+## Localization
+
+The runtime speech layer supports language-specific messaging by reading `request.locale` and mapping it to language codes.
+Current mappings include:
+- `en-*`: launch cue `mrrr`, prompt `wake up, mascota`
+- `es-*`: launch cue `mrrr`, prompt `coge, mascota`
+
+To add another language, extend `lambda/clock_pet/i18n.py` with a new language entry.

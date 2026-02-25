@@ -5,6 +5,7 @@ from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_core.utils import is_request_type
 
 from clock_pet.constants import EYE_FRAMES
+from clock_pet.i18n import message
 from clock_pet.renderer import build_aplt_render_directive
 
 
@@ -17,8 +18,10 @@ class LaunchRequestHandler(AbstractRequestHandler):
         directive = build_aplt_render_directive(frame)
         handler_input.attributes_manager.session_attributes.update({"eyeIndex": 0, "mood": "awake"})
 
+        locale = handler_input.request_envelope.request.locale
+        launch_speech = message(locale, "launch")
         return (
-            handler_input.response_builder.speak("<speak>Hello, I am Mascota.</speak>")
+            handler_input.response_builder.speak(f"<speak>{launch_speech}</speak>")
             .add_directive(directive)
             .set_should_end_session(False)
             .response
