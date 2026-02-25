@@ -1,0 +1,46 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "levanta mascota",
+      "intents": [
+        {
+          "name": "PetIntent",
+          "samples": [
+            "acaricia mascota",
+            "acaricia",
+            "muestra los ojos",
+            "dale una caricia",
+            "quiero acariciar mascota",
+            "coge mascota",
+            "coge, mascota",
+            "di coge mascota"
+          ]
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": [
+            "ayuda",
+            "qué pasa",
+            "qué tal"
+          ]
+        },
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": [
+            "adiós",
+            "chao"
+          ]
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        }
+      ],
+      "types": []
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "mascota",
+      "intents": [
+        {
+          "name": "PetIntent",
+          "samples": [
+            "pet",
+            "pet mascota",
+            "pat",
+            "pat mascota",
+            "give mascota a pat",
+            "show eyes",
+            "wake up mascota",
+            "wake up, mascota",
+            "wake mascota up"
+          ]
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        }
+      ],
+      "types": []
+    }
+  }
+}
