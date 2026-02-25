@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Sync lambda/ and skill-package/ from one local repo directory to another.
+# Sync lambda/ and skill-package/interactionModels from one local repo directory to another.
 # Keeps all non-synced files on target.
 # Usage:
 #   scripts/sync_repo.sh <from-repo-dir> <to-repo-dir> [source-branch] [target-branch] [from-dir] [to-dir]
@@ -11,7 +11,7 @@ set -euo pipefail
 
 if [[ ${1:-} == "-h" || ${1:-} == "--help" || $# -lt 2 || $# -gt 6 ]]; then
   cat <<'USAGE'
-Sync lambda/ and skill-package/ directories from source repo to destination repo.
+Sync lambda/ and skill-package/interactionModels directories from source repo to destination repo.
 
 Usage:
   scripts/sync_repo.sh <from-repo-dir> <to-repo-dir> [source-branch] [target-branch] [from-dir] [to-dir]
@@ -25,7 +25,7 @@ Arguments:
   to-dir        Optional destination repo subdirectory prefix (defaults to from-dir)
 
 Behavior:
-  - Copies lambda/ and skill-package/ from <from-dir> in <source-branch>.
+  - Copies lambda/ and skill-package/interactionModels from <from-dir> in <source-branch>.
   - Writes them into <to-dir> on destination branch.
   - Preserves all other files in destination branch.
   - Creates a commit in destination repo only when synced paths changed.
@@ -80,9 +80,9 @@ target_path() {
 }
 
 SOURCE_LAMBDA_PATH="$(source_path lambda)"
-SOURCE_SKILL_PACKAGE_PATH="$(source_path skill-package)"
+SOURCE_SKILL_PACKAGE_PATH="$(source_path skill-package/interactionModels)"
 TARGET_LAMBDA_PATH="$(target_path lambda)"
-TARGET_SKILL_PACKAGE_PATH="$(target_path skill-package)"
+TARGET_SKILL_PACKAGE_PATH="$(target_path skill-package/interactionModels)"
 
 # Validate both directories are git repos.
 git -C "$FROM_REPO_DIR" rev-parse --is-inside-work-tree >/dev/null
@@ -146,6 +146,6 @@ if [[ -z "$(git -C "$TO_REPO_DIR" status --porcelain -- "$TARGET_LAMBDA_PATH" "$
 fi
 
 git -C "$TO_REPO_DIR" add "$TARGET_LAMBDA_PATH" "$TARGET_SKILL_PACKAGE_PATH"
-git -C "$TO_REPO_DIR" commit -q -m "chore(sync): update lambda and skill-package from ${SOURCE_BRANCH}"
+git -C "$TO_REPO_DIR" commit -q -m "chore(sync): update lambda and skill-package interaction models from ${SOURCE_BRANCH}"
 
 echo "Sync completed: ${SOURCE_LAMBDA_PATH}/, ${SOURCE_SKILL_PACKAGE_PATH}/ from ${FROM_REPO_DIR}:${SOURCE_BRANCH} -> ${TO_REPO_DIR}:${TARGET_BRANCH} (${TARGET_LAMBDA_PATH}/, ${TARGET_SKILL_PACKAGE_PATH}/)"

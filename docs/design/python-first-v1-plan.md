@@ -158,7 +158,7 @@ Preserve these as follows:
 Safe defaults when syncing this repo to your CodeCommit remote:
 
 - If using full-repo sync, commit/push: `lambda/`, `skill-package/`, `ask-resources.json`, docs/scripts.
-- If using `scripts/sync_repo.sh`, only `lambda/` is synced to destination; target `skill-package/` and `ask-resources.json` stay as-is.
+- If using `scripts/sync_repo.sh`, `lambda/` and `skill-package/interactionModels/` are synced to destination; target `ask-resources.json` stays as-is.
 - Do **not** commit credentials/secrets (none should be stored in these files).
 - If you use local-only IDE settings, optionally add workspace file to `.gitignore` in your personal fork.
 
