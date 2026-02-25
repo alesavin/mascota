@@ -4,6 +4,7 @@ from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_core.utils import is_intent_name
 
+from clock_pet.i18n import message
 from clock_pet.renderer import build_aplt_render_directive
 from clock_pet.speech import build_blink_ssml
 from clock_pet.state import next_state
@@ -19,8 +20,9 @@ class PetIntentHandler(AbstractRequestHandler):
         session_attributes.update(new_state)
 
         directive = build_aplt_render_directive(frame)
+        locale = handler_input.request_envelope.request.locale
         return (
-            handler_input.response_builder.speak(build_blink_ssml("good pet"))
+            handler_input.response_builder.speak(build_blink_ssml(message(locale, "pet")))
             .add_directive(directive)
             .set_should_end_session(False)
             .response
