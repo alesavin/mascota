@@ -8,7 +8,9 @@ This repository is prepared with a quality and secrets baseline so project imple
 - Secrets-scanning baseline (`gitleaks` config + pre-commit hook).
 - CI workflow to enforce standards on pull requests.
 - Product design notes for **Mascota** in `docs/design/clock-pet.md`.
-- Alexa interaction model starter with `PetIntent` in `skill-package/interactionModels/custom/en-US.json`.
+- Alexa interaction model starters with `PetIntent` in:
+  - `skill-package/interactionModels/custom/en-US.json`
+  - `skill-package/interactionModels/custom/es-ES.json`
 
 ## Quick start
 
@@ -44,10 +46,11 @@ This repository is prepared with a quality and secrets baseline so project imple
 
 ### Option B: By file (recommended)
 
-1. Use the checked-in model file at:
-   `skill-package/interactionModels/custom/en-US.json`
+1. Use the checked-in model file for your locale:
+   - English (US): `skill-package/interactionModels/custom/en-US.json`
+   - Spanish (ES): `skill-package/interactionModels/custom/es-ES.json`
 2. In Alexa Console, open **JSON Editor** under **Interaction Model**.
-3. Paste this file content (or merge `PetIntent` into your existing model).
+3. Paste the locale file content (or merge `PetIntent` into your existing model).
 4. Save and **Build Model**.
 
 If you use SMAPI/ASK CLI later, this same file can be deployed as part of your skill package.
